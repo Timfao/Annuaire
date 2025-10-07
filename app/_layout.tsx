@@ -1,24 +1,40 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { initDatabase } from '@/services/database.service';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+// Empêcher le splash screen de se cacher automatiquement
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  useEffect(() => {
+    async function prepare() {
+      try {
+        // Initialiser la base de données
+        await initDatabase();
+        console.log('✅ Database initialized');
+      } catch (error) {
+        console.error('❌ Initialization error:', error);
+      } finally {
+        // Cacher le splash screen
+        await SplashScreen.hideAsync();
+      }
+    }
+
+    prepare();
+  }, []);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen 
+        name="actualite/[id]" 
+        options={{ 
+          title: 'Détail de l\'actualité',
+          headerBackTitle: 'Retour'
+        }} 
+      />
+    </Stack>
   );
 }
