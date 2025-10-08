@@ -12,9 +12,9 @@ export default function RootLayout() {
       try {
         // Initialiser la base de données
         await initDatabase();
-        console.log('✅ Database initialized');
+        console.log('Database initialized');
       } catch (error) {
-        console.error('❌ Initialization error:', error);
+        console.error(' Initialization error:', error);
       } finally {
         // Cacher le splash screen
         await SplashScreen.hideAsync();

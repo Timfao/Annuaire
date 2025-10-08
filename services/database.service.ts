@@ -9,9 +9,9 @@ export async function initDatabase(): Promise<void> {
     // Créer les tables si elles n'existent pas
     await createTables(db);
     
-    console.log('✅ Base de données initialisée avec succès');
+    console.log(' Base de données initialisée avec succès');
   } catch (error) {
-    console.error('❌ Erreur lors de l\'initialisation de la base de données:', error);
+    console.error(' Erreur lors de l\'initialisation de la base de données:', error);
     throw error;
   }
 }
@@ -58,7 +58,7 @@ async function createTables(db: SQLite.SQLiteDatabase): Promise<void> {
     );
   `);
 
-  console.log('✅ Tables créées avec succès');
+  console.log('Tables créées avec succès');
 
   // Appliquer une migration légère pour ajouter des colonnes facultatives manquantes
   await ensureReportExtraColumns(db);
@@ -89,7 +89,7 @@ async function ensureReportExtraColumns(db: SQLite.SQLiteDatabase): Promise<void
       }
     }
   } catch (error) {
-    console.error('❌ Erreur migration table reports:', error);
+    console.error(' Erreur migration table reports:', error);
   }
 }
 
@@ -108,7 +108,7 @@ export async function insertNews(newsList: any[]): Promise<void> {
     );
     
     for (const item of newsList) {
-      // ✅ Gestion sécurisée de la date
+      // Gestion sécurisée de la date
       let dateStr = '';
       if (item.date) {
         try {
@@ -120,7 +120,7 @@ export async function insertNews(newsList: any[]): Promise<void> {
         dateStr = new Date().toISOString();
       }
 
-      // ✅ Gestion sécurisée de createdAt
+      // Gestion sécurisée de createdAt
       let createdAtStr = '';
       if (item.createdAt) {
         try {
@@ -143,9 +143,9 @@ export async function insertNews(newsList: any[]): Promise<void> {
       ]);
     }
     
-    console.log('✅ Actualités mises en cache');
+    console.log('Actualités mises en cache');
   } catch (error) {
-    console.error('❌ Erreur lors de la mise en cache des actualités:', error);
+    console.error(' Erreur lors de la mise en cache des actualités:', error);
   }
 }
 
@@ -159,7 +159,7 @@ export async function getNews(): Promise<any[]> {
       createdAt: new Date(item.createdAt),
     }));
   } catch (error) {
-    console.error('❌ Erreur lors de la récupération des actualités:', error);
+    console.error(' Erreur lors de la récupération des actualités:', error);
     return [];
   }
 }
@@ -178,7 +178,7 @@ export async function getNewsById(id: number): Promise<any | null> {
     
     return null;
   } catch (error) {
-    console.error('❌ Erreur lors de la récupération de l\'actualité:', error);
+    console.error(' Erreur lors de la récupération de l\'actualité:', error);
     return null;
   }
 }
@@ -207,9 +207,9 @@ export async function insertContacts(contactsList: any[]): Promise<void> {
       ]);
     }
     
-    console.log('✅ Contacts mis en cache');
+    console.log(' Contacts mis en cache');
   } catch (error) {
-    console.error('❌ Erreur lors de la mise en cache des contacts:', error);
+    console.error(' Erreur lors de la mise en cache des contacts:', error);
   }
 }
 
@@ -219,7 +219,7 @@ export async function getContacts(): Promise<any[]> {
     const result = db.getAllSync('SELECT * FROM contacts ORDER BY name ASC');
     return result;
   } catch (error) {
-    console.error('❌ Erreur lors de la récupération des contacts:', error);
+    console.error(' Erreur lors de la récupération des contacts:', error);
     return [];
   }
 }
@@ -270,10 +270,10 @@ export async function saveReport(input: SaveReportInput): Promise<number> {
     ]) as unknown as { lastInsertRowId?: number };
 
     const id = (result && 'lastInsertRowId' in result && (result as any).lastInsertRowId) || 0;
-    console.log('✅ Rapport enregistré, id =', id);
+    console.log(' Rapport enregistré, id =', id);
     return id;
   } catch (error) {
-    console.error('❌ Erreur lors de l\'enregistrement du rapport:', error);
+    console.error(' Erreur lors de l\'enregistrement du rapport:', error);
     throw error;
   }
 }
