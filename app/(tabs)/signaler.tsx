@@ -181,23 +181,7 @@ export default function SignalerScreen() {
         />
       </View>
 
-      <View style={styles.inputGroup} accessibilityLabel="champ-categorie">
-        <Text style={styles.label}>Catégorie</Text>
-        <View style={styles.categoryRow}>
-          {['general','securite','maintenance','proprete'].map((c) => (
-            <TouchableOpacity
-              key={c}
-              style={[styles.categoryChip, category === c && styles.categoryChipActive]}
-              onPress={() => setCategory(c)}
-              accessibilityLabel={`Categorie ${c}`}
-            >
-              <Text style={[styles.categoryText, category === c && styles.categoryTextActive]}>
-                {c.charAt(0).toUpperCase() + c.slice(1)}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
+      
 
       <View style={styles.mediaButtons}>
         <TouchableOpacity style={styles.mediaButton} onPress={handleTakePhoto} accessibilityLabel="Prendre une photo">

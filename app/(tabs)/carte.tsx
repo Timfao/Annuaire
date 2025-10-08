@@ -4,8 +4,8 @@ import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 const LIBRARY_POI = {
-  latitude: 5.290714,
-  longitude: -3.998846
+  latitude: 5.290723034123418,
+  longitude: -3.9988470009625865
 ,
   title: 'Bibliothèque ESATIC',
 };
